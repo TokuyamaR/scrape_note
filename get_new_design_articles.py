@@ -3,6 +3,7 @@
 import logging
 import json
 import requests
+import datetime
 from typing import List
 from selenium.webdriver import Chrome, ChromeOptions,Remote
 from selenium.common.exceptions import NoSuchElementException
@@ -54,8 +55,9 @@ def scrape_contents(driver: Remote) -> List[dict]:
 
 # チャットワーク用に取得コンテンツを変換
 def transfer_contents(contents):
-
     message_list = []
+    dt_now = datetime.datetime.now().strftime('%Y年%m月%d日 %H:%M')
+    message_list.append(f'{dt_now} 時点の新着記事です')
     for content in contents:
         message = f'[info][title]{content["title"]}[/title]{content["url"]}[/info]'
         message_list.append(message)
@@ -66,9 +68,8 @@ def transfer_contents(contents):
     return all_messages
 
 def post_contents(message):
-    BASE_URL = 'https://api.chatwork.com/v2'
 
-    print(dt_now.strftime('%Y年%m月%d日 %H:%M:%S'))
+    BASE_URL = 'https://api.chatwork.com/v2'
 
     #Setting
     roomid   = '89512053'
