@@ -19,7 +19,7 @@ def main():
     if len(contents) > 0:
         message = transfer_contents(contents)
     else:
-        message = '新着記事はありません。'ws
+        message = '新着記事はありません。'
 
     post_contents(message)
 
@@ -48,7 +48,7 @@ def scrape_contents(driver: Remote) -> List[dict]:
         })
 
     logging.info(f'Found {len(contents)} contents')
-    print_finish_log('投稿', True)
+    print_finish_log('取得', True)
 
     return contents
 
@@ -67,6 +67,8 @@ def transfer_contents(contents):
 
 def post_contents(message):
     BASE_URL = 'https://api.chatwork.com/v2'
+
+    print(dt_now.strftime('%Y年%m月%d日 %H:%M:%S'))
 
     #Setting
     roomid   = '89512053'
